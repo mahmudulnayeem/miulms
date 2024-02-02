@@ -1,15 +1,17 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { Course } from "@prisma/client";
+import axios from "axios";
+import { Pencil } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
+import { Button } from "@/components/ui/button";
+import { Combobox } from "@/components/ui/combobox";
 import {
   Form,
   FormControl,
@@ -17,16 +19,13 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { Combobox } from "@/components/ui/combobox";
 
 interface CategoryFormProps {
   initialData: Course;
   courseId: string;
-  options: { label: string; value: string; }[];
-};
+  options: { label: string; value: string }[];
+}
 
 const formSchema = z.object({
   categoryId: z.string().min(1),
@@ -46,7 +45,7 @@ export const CategoryForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData?.categoryId || ""
+      categoryId: initialData?.categoryId || "",
     },
   });
 
@@ -61,9 +60,11 @@ export const CategoryForm = ({
     } catch {
       toast.error("Something went wrong");
     }
-  }
+  };
 
-  const selectedOption = options.find((option) => option.value === initialData.categoryId);
+  const selectedOption = options.find(
+    (option) => option.value === initialData.categoryId
+  );
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -81,10 +82,12 @@ export const CategoryForm = ({
         </Button>
       </div>
       {!isEditing && (
-        <p className={cn(
-          "text-sm mt-2",
-          !initialData.categoryId && "text-slate-500 italic"
-        )}>
+        <p
+          className={cn(
+            "text-sm mt-2",
+            !initialData.categoryId && "text-slate-500 italic"
+          )}
+        >
           {selectedOption?.label || "No category"}
         </p>
       )}
@@ -100,20 +103,14 @@ export const CategoryForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Combobox
-                      options={...options}
-                      {...field}
-                    />
+                    <Combobox options={...options} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button
-                disabled={!isValid || isSubmitting}
-                type="submit"
-              >
+              <Button disabled={!isValid || isSubmitting} type="submit">
                 Save
               </Button>
             </div>
@@ -121,5 +118,5 @@ export const CategoryForm = ({
         </Form>
       )}
     </div>
-  )
-}
+  );
+};

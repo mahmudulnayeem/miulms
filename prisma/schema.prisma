@@ -1,7 +1,7 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -29,7 +29,6 @@ model Course {
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
-  @@fulltext([title])
 }
 
 model Category {
