@@ -1,3 +1,8 @@
 export const isAdmin = (userId?: string | null) => {
-  return userId === process.env.NEXT_PUBLIC_ADMIN_ID;
+  if (!userId) return false;
+  const admins = [
+    "user_2boRIGTOk2hEClw5goDnkaPpgVG",
+    "user_2bo6X22IvGdlE218WHmXlgNo3Xk",
+  ];
+  return admins.includes(userId);
 };
