@@ -7,22 +7,26 @@ import { isTeacher } from "@/lib/teacher";
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
-    const { title } = await req.json();
+    const { courseName, teacherName: name } = await req.json();
 
-    if (!userId || !(await isTeacher(userId))) {
+    if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    if (await isTeacher(userId)) {
+      return new NextResponse("Unauthorized", { status: 403 });
+    }
 
-    const course = await db.course.create({
+    const teacher = await db.teacher.create({
       data: {
-        userId,
-        title,
+        teacherId: userId,
+        courseName,
+        name,
       },
     });
 
-    return NextResponse.json(course);
+    return NextResponse.json(teacher);
   } catch (error) {
-    console.log("[COURSES]", error);
+    console.log("[teacher]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
