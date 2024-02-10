@@ -24,6 +24,14 @@ const formSchema = z.object({
   teacherName: z.string().min(1, {
     message: "Teacher name is required",
   }),
+  educationalQualification: z.string().min(1, {
+    message: "Educational qualification is required",
+  }),
+  experience: z.string().optional(),
+  fieldOfExpertise: z.string().min(1, {
+    message: "Field of expertise is required",
+  }),
+  cirtification: z.string().optional(),
 });
 const RequestForm = () => {
   const router = useRouter();
@@ -92,7 +100,90 @@ const RequestForm = () => {
                 </FormItem>
               )}
             />
-
+            <FormField
+              control={form.control}
+              name="educationalQualification"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="educationalQualification">
+                    Educational Qualification
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'BSc in Computer Science'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    What is your highest educational qualification?
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="experience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="experience">Experience</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. '5 years of experience'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    How many years of experience do you have?
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="fieldOfExpertise"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="fieldOfExpertise">
+                    Field of Expertise
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'Web development'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    What is your field of expertise?
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cirtification"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="cirtification">Citification</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isSubmitting}
+                      placeholder="e.g. 'Microsoft Certified Professional'"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Do you have any certification in your field of expertise?
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="flex items-center gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
                 Submit

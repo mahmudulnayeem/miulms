@@ -125,6 +125,10 @@ model Teacher{
   teacherId String @unique
   name String
   courseName String
+  educationalQualification String
+  experience String?
+  fieldOfExpertise String
+  cirtification String?
   verified Boolean @default(false)
 }
 

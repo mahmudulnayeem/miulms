@@ -7,7 +7,14 @@ import { isTeacher } from "@/lib/teacher";
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
-    const { courseName, teacherName: name } = await req.json();
+    const {
+      courseName,
+      teacherName: name,
+      educationalQualification,
+      experience,
+      fieldOfExpertise,
+      cirtification,
+    } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -21,6 +28,10 @@ export async function POST(req: Request) {
         teacherId: userId,
         courseName,
         name,
+        educationalQualification,
+        experience: experience || undefined,
+        fieldOfExpertise,
+        cirtification: cirtification || undefined,
       },
     });
 

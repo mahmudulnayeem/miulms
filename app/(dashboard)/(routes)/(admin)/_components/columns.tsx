@@ -50,6 +50,74 @@ export const columns: ColumnDef<Teacher>[] = [
     },
   },
   {
+    accessorKey: "educationalQualification",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Educational Qualification
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original.educationalQualification}</div>;
+    },
+  },
+  {
+    accessorKey: "experience",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Experience
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original.experience}</div>;
+    },
+  },
+  {
+    accessorKey: "fieldOfExpertise",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Field of Expertise
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original.fieldOfExpertise}</div>;
+    },
+  },
+  {
+    accessorKey: "cirtification",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Certification
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return <div>{row.original.cirtification}</div>;
+    },
+  },
+  {
     accessorKey: "verified",
     header: ({ column }) => {
       return (
@@ -80,16 +148,19 @@ export const columns: ColumnDef<Teacher>[] = [
         const res = await axios.post("/api/teacher/approve", { id });
         toast.success(res.data.message);
         invalidPath("/admin");
+        invalidPath("/");
       };
       const handleReject = async () => {
         const res = await axios.post("/api/teacher/reject", { id });
         toast.success(res.data.message);
         invalidPath("/admin");
+        invalidPath("/");
       };
       const handleDelete = async () => {
         const res = await axios.post("/api/teacher/delete", { id });
         toast.success(res.data.message);
         invalidPath("/admin");
+        invalidPath("/");
       };
       return (
         <DropdownMenu>
